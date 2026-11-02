@@ -82,6 +82,6 @@ int main(void)
     ListInsertTail(list, 4);  /* 插 4 */
     PrintList(list);          /* 打印 */
     printf("list->next->data = %d\n", list->next->data);  /* 打印头结点下一节点数据域 */
-
+    printf("你好");
     return 0;
 }

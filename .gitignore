@@ -1,0 +1,13 @@
+# 编译产物（每次编译都会重新生成，不需要传到 GitHub）
+.build/
+*.exe
+*.o
+*.obj
+*.out
+*.ilk
+*.pdb
+*.dSYM/
+
+# 临时文件
+*.tmp
+*~
