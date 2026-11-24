@@ -130,7 +130,7 @@ Status LocateElem(LinkList L, ElemType e)
 
  void ClearList(LinkList L)
 {
-    if (L == NULL) return 0;
+    if (L == NULL) return;
     LinkList p = L->next;
     while (p != NULL) {
         LinkList q = p->next;
