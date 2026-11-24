@@ -23,7 +23,7 @@
  *   ListEmpty(L)                判空
  *   ListLength(L)               返回元素个数
  *   GetElem(L, i, *e)           取第 i 个元素（i 从 1 开始，需要先校验 i 的合法性）
- *   LocateElem(L, e)            按值查找，返回位序，找不到返回 0
+ *  √ LocateElem(L, e)            按值查找，返回位序，找不到返回 0√
  *   ListInsert(L, i, e)         按位序插入，链表的核心操作（现在是头插/尾插两个特例）
  *   ListDelete(L, i, *e)        删除第 i 个结点并带出值，最考指针功底，优先写
  *   PriorElem(L, cur, *pre)     求前驱
@@ -51,11 +51,18 @@
 typedef int Status;
 typedef int ElemType;
 
+
+
+
 /* 单链表结点 */
 typedef struct Node {
     ElemType     data;
     struct Node *next;
 } Node, *LinkList;      /* LinkList 就是 Node*，指头结点 */
+
+
+
+
 
 /* 初始化：建一个只有头结点的空链表 */
 Status InitList(LinkList *L)
@@ -65,6 +72,9 @@ Status InitList(LinkList *L)
     (*L)->next = NULL;                   /* 空表 */
     return OK;
 }
+
+
+
 
 /* 头插法：把 e 插到链表最前面 */
 Status ListInsertHead(LinkList L, ElemType e)
@@ -79,7 +89,12 @@ Status ListInsertHead(LinkList L, ElemType e)
     return OK;
 }
 
-Status ListInsertTail( LinkList L, ElemType e)//尾插法
+
+
+
+
+//尾插法
+Status ListInsertTail( LinkList L, ElemType e)
 {
     LinkList p =(Node *)malloc(sizeof(Node));
     if(p == NULL) return ERROR;
@@ -91,6 +106,40 @@ Status ListInsertTail( LinkList L, ElemType e)//尾插法
     L->next = p;
     return OK;
 }
+
+
+
+
+
+// 查找某一个元素在链表中的位序
+Status LocateElem(LinkList L, ElemType e)
+{
+    if (L == NULL) return ERROR;
+    LinkList p = L->next;  /* 从第一个真实结点开始 */
+    int i = 1;              /* 位序从 1 开始 */
+    while (p != NULL && p->data != e) {
+        p = p->next;
+        i++;
+    }
+    if (p == NULL) return ERROR;  /* 没找到 */
+    return i;                      /* 找到，返回位序 */
+}
+
+
+
+
+ void ClearList(LinkList L)
+{
+    if (L == NULL) return 0;
+    LinkList p = L->next;
+    while (p != NULL) {
+        LinkList q = p->next;
+        free(p);
+        p = q;
+    }
+    L->next = NULL;
+}
+
 
 
 
@@ -117,6 +166,7 @@ int main(void)
     ListInsertTail(list, 4);  /* 插 4 */
     PrintList(list);          /* 打印 */
     printf("list->next->data = %d\n", list->next->data);  /* 打印头结点下一节点数据域 */
-    printf("你好");
+    printf("你好\n");
+    printf("5 的位序是 %d\n", LocateElem(list, 5));
     return 0;
 }
